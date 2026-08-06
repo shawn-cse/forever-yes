@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Forever Yes is a playful, responsive love proposal experience with heartfelt messages, music and a confetti celebration."
+    />
+    <meta name="theme-color" content="#7f1d4e" />
+    <title>Forever Yes — A Special Question</title>
+
+    <link rel="icon" href="assets/images/proposal.jpg" type="image/jpeg" />
+    <link rel="preload" href="assets/images/proposal.jpg" as="image" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#experience">Skip to the proposal</a>
+
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+    <div class="floating-hearts" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Forever Yes home">
+        <span class="brand-mark" aria-hidden="true">♥</span>
+        <span>Forever Yes</span>
+      </a>
+
+      <button
+        class="icon-button music-toggle"
+        id="musicToggle"
+        type="button"
+        aria-label="Play background music"
+        aria-pressed="false"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 18V5l11-2v13" />
+          <circle cx="6" cy="18" r="3" />
+          <circle cx="17" cy="16" r="3" />
+        </svg>
+        <span class="music-label">Music</span>
+      </button>
+    </header>
+
+    <main id="experience" class="experience" tabindex="-1">
+      <section class="proposal-shell" aria-labelledby="mainTitle">
+        <div class="visual-panel">
+          <div class="image-frame">
+            <img
+              src="assets/images/proposal.jpg"
+              alt="An illustrated person offering flowers during a romantic proposal"
+              width="360"
+              height="360"
+            />
+          </div>
+          <p class="visual-caption">A little journey to one very important question.</p>
+        </div>
+
+        <div class="content-panel">
+          <div class="progress-block" aria-label="Proposal progress">
+            <div class="progress-meta">
+              <span id="stepLabel">A heartfelt note</span>
+              <span><strong id="stepNumber">1</strong> / <span id="stepTotal">5</span></span>
+            </div>
+            <div
+              class="progress-track"
+              role="progressbar"
+              aria-valuemin="1"
+              aria-valuemax="5"
+              aria-valuenow="1"
+              aria-label="Proposal step"
+            >
+              <span id="progressBar"></span>
+            </div>
+          </div>
+
+          <div class="slides" aria-live="polite">
+            <article class="slide is-active" data-label="A heartfelt note">
+              <p class="eyebrow">For someone truly special</p>
+              <h1 id="mainTitle">I have something important to share with you.</h1>
+              <p class="lead">
+                Take a tiny pause, press next, and let me tell you what has been on my heart.
+              </p>
+              <button class="primary-button next-button" type="button">
+                Begin the journey
+                <span aria-hidden="true">→</span>
+              </button>
+            </article>
+
+            <article class="slide" data-label="Your smile" aria-hidden="true">
+              <p class="eyebrow">One of my favourite things</p>
+              <h2>You make me smile every single day.</h2>
+              <p class="lead">
+                Even the simplest moments feel brighter when I get to share them with you.
+              </p>
+              <button class="primary-button next-button" type="button">
+                Keep going
+                <span aria-hidden="true">→</span>
+              </button>
+            </article>
+
+            <article class="slide" data-label="Beautiful moments" aria-hidden="true">
+              <p class="eyebrow">You make life beautiful</p>
+              <h2>Life feels warmer, kinder and more meaningful with you in it.</h2>
+              <p class="lead">
+                You turn ordinary days into memories I want to keep forever.
+              </p>
+              <button class="primary-button next-button" type="button">
+                One more thought
+                <span aria-hidden="true">→</span>
+              </button>
+            </article>
+
+            <article class="slide" data-label="What you mean" aria-hidden="true">
+              <p class="eyebrow">From the heart</p>
+              <h2>Every little moment with you means the world to me.</h2>
+              <p class="lead">
+                And there is one question that can make all those moments part of our forever.
+              </p>
+              <button class="primary-button next-button" type="button">
+                Ask the question
+                <span aria-hidden="true">→</span>
+              </button>
+            </article>
+
+            <article class="slide proposal-slide" data-label="The big question" aria-hidden="true">
+              <p class="eyebrow">So, here it is</p>
+              <h2>Will you be mine forever?</h2>
+              <p class="lead">Choose carefully. One of these buttons is a little shy.</p>
+
+              <div class="choice-area" id="choiceArea">
+                <button class="primary-button yes-button" id="yesButton" type="button">
+                  Yes, forever <span aria-hidden="true">♥</span>
+                </button>
+                <button class="secondary-button no-button" id="noButton" type="button">
+                  Not yet
+                </button>
+              </div>
+              <p class="playful-message" id="playfulMessage" role="status"></p>
+            </article>
+
+            <article class="slide success-slide" data-label="Our forever" aria-hidden="true">
+              <div class="success-icon" aria-hidden="true">♥</div>
+              <p class="eyebrow">The happiest answer</p>
+              <h2>You just made me the happiest person alive.</h2>
+              <p class="lead">Our forever starts now — with love, laughter and countless beautiful memories.</p>
+              <button class="secondary-button restart-button" id="restartButton" type="button">
+                Replay the moment
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Designed and rebuilt with care by <strong>shawn-cse</strong>.</p>
+      <a href="mailto:shawnazd@gmail.com">shawnazd@gmail.com</a>
+    </footer>
+
+    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+    <audio id="backgroundMusic" src="assets/audio/bg-music.mp3" loop preload="metadata"></audio>
+
+    <noscript>
+      <div class="noscript-message">Please enable JavaScript to enjoy the complete interactive experience.</div>
+    </noscript>
+
+    <script src="js/confetti.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </body>
+</html>
