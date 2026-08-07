@@ -12,6 +12,7 @@
     yesButton: "#yesButton",
     noButton: "#noButton",
     choiceArea: "#choiceArea",
+    noZone: "#noZone",
     playfulMessage: "#playfulMessage",
     restartButton: "#restartButton",
     musicToggle: "#musicToggle",
@@ -32,6 +33,7 @@
       this.yesButton = document.querySelector(SELECTORS.yesButton);
       this.noButton = document.querySelector(SELECTORS.noButton);
       this.choiceArea = document.querySelector(SELECTORS.choiceArea);
+      this.noZone = document.querySelector(SELECTORS.noZone);
       this.playfulMessage = document.querySelector(SELECTORS.playfulMessage);
       this.restartButton = document.querySelector(SELECTORS.restartButton);
       this.musicToggle = document.querySelector(SELECTORS.musicToggle);
@@ -53,7 +55,11 @@
 
     init() {
       this.stepTotal.textContent = String(this.questionSlideIndex + 1);
-      this.nextButtons.forEach((button) => button.addEventListener("click", () => this.goTo(this.currentSlide + 1)));
+      this.backgroundMusic.volume = 0.32;
+      this.nextButtons.forEach((button) => button.addEventListener("click", () => {
+        if (this.currentSlide === 0 && this.backgroundMusic.paused) this.playMusic();
+        this.goTo(this.currentSlide + 1);
+      }));
       this.yesButton.addEventListener("click", () => this.acceptProposal());
       this.restartButton.addEventListener("click", () => this.restart());
       this.musicToggle.addEventListener("click", () => this.toggleMusic());
@@ -113,19 +119,20 @@
       if (event.type === "pointerdown") event.preventDefault();
 
       this.noAttempts += 1;
-      const areaRect = this.choiceArea.getBoundingClientRect();
+      const zoneRect = this.noZone.getBoundingClientRect();
       const buttonRect = this.noButton.getBoundingClientRect();
-      const maxX = Math.max(0, areaRect.width - buttonRect.width);
-      const maxY = Math.max(0, areaRect.height - buttonRect.height);
-      const nextX = Math.random() * maxX;
-      const nextY = Math.random() * maxY;
+      const inset = 6;
+      const maxX = Math.max(inset, zoneRect.width - buttonRect.width - inset);
+      const maxY = Math.max(inset, zoneRect.height - buttonRect.height - inset);
+      const nextX = inset + Math.random() * Math.max(0, maxX - inset);
+      const nextY = inset + Math.random() * Math.max(0, maxY - inset);
 
-      this.noButton.style.position = "absolute";
       this.noButton.style.left = `${nextX}px`;
       this.noButton.style.top = `${nextY}px`;
+      this.noButton.style.transform = "none";
       this.playfulMessage.textContent = this.messages[(this.noAttempts - 1) % this.messages.length];
 
-      const scale = Math.min(1.18, 1 + this.noAttempts * 0.035);
+      const scale = Math.min(1.08, 1 + this.noAttempts * 0.018);
       this.yesButton.style.transform = `scale(${scale})`;
     }
 
@@ -166,7 +173,7 @@
       this.musicToggle.setAttribute("aria-pressed", String(isPlaying));
       this.musicToggle.setAttribute("aria-label", isPlaying ? "Pause background music" : "Play background music");
       const label = this.musicToggle.querySelector(".music-label");
-      if (label) label.textContent = isPlaying ? "Pause" : "Music";
+      if (label) label.textContent = isPlaying ? "Pause song" : "English song";
     }
 
     createFloatingHearts() {

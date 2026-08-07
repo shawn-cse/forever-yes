@@ -1,27 +1,25 @@
 # Forever Yes
 
-A polished, responsive and playful love-proposal website rebuilt from the original static project. It presents heartfelt messages step by step, includes background music, a playful moving “Not yet” button and a confetti celebration after the proposal is accepted.
+**Forever Yes** is a polished, responsive and playful love-proposal website built with HTML, CSS and vanilla JavaScript. The experience stays inside a compact single-screen card on normal desktop and mobile displays, so the visitor does not have to keep scrolling through the proposal.
 
 ![Forever Yes desktop preview](screenshots/home-desktop.png)
 
-## Project name
+## What was improved
 
-**Forever Yes** is simple, easy to understand and directly reflects the purpose of the experience: asking someone to choose a shared forever.
-
-## Features
-
-- Elegant split-card design with romantic imagery
-- Five-step guided proposal flow with progress indicator
-- Responsive layout for desktop, tablet and mobile
-- Playful moving “Not yet” button with safe screen boundaries
-- Animated confetti celebration rendered with Canvas
-- Background music with an accessible play/pause control
-- Floating decorative hearts and soft ambient background effects
-- Keyboard navigation using the right-arrow key
-- Reduced-motion support for accessibility
-- Semantic HTML, ARIA labels and strong keyboard focus states
-- No build process or paid hosting required
-- Ready for GitHub Pages
+- Compact viewport-based layout with dramatically less scrolling
+- Better spacing on desktop, tablet and mobile
+- Fixed proposal action section so the **Yes** and **Not yet** buttons never overlap or get clipped
+- Dedicated safe movement area for the playful **Not yet** button
+- Softer button scaling so the **Yes** button stays aligned
+- English song playback instead of the previous local background audio
+- Music begins after the first real interaction, which works with modern browser autoplay rules
+- Lower background volume for a cleaner experience
+- Responsive typography and shorter vertical spacing
+- Five-step proposal journey with progress indicator
+- Canvas confetti celebration
+- Floating hearts and ambient background effects
+- Keyboard navigation and accessible controls
+- GitHub Pages ready — no framework or build process required
 
 ## Technology
 
@@ -29,7 +27,7 @@ A polished, responsive and playful love-proposal website rebuilt from the origin
 - Modern CSS3
 - Vanilla JavaScript (ES6+)
 - Canvas API
-- Google Fonts with local system-font fallbacks
+- Google Fonts with system-font fallbacks
 
 ## Folder structure
 
@@ -37,7 +35,7 @@ A polished, responsive and playful love-proposal website rebuilt from the origin
 forever-yes/
 ├── assets/
 │   ├── audio/
-│   │   └── bg-music.mp3
+│   │   └── README.md
 │   └── images/
 │       └── proposal.jpg
 ├── css/
@@ -52,41 +50,71 @@ forever-yes/
 │   └── home-mobile.png
 ├── .gitignore
 ├── LICENSE
+├── MEDIA-LICENSE.md
 ├── index.html
 └── README.md
 ```
 
+## Music
+
+The default soundtrack is the English chorus **“Every Little Movement”**. The recording is loaded from Wikimedia Commons and is published under **CC0 / public domain dedication**.
+
+The music is intentionally loaded from the public source instead of being bundled as a copyrighted commercial song inside the repository.
+
+### Use your own English song
+
+If you have an MP3 you are legally allowed to use, place it inside:
+
+```text
+assets/audio/
+```
+
+For example:
+
+```text
+assets/audio/my-song.mp3
+```
+
+Then replace the `<audio>` element in `index.html` with:
+
+```html
+<audio id="backgroundMusic" loop preload="metadata">
+  <source src="assets/audio/my-song.mp3" type="audio/mpeg" />
+</audio>
+```
+
+You do not need to change the JavaScript.
+
 ## Run locally
 
-### Option 1: Open directly
+### Option 1 — VS Code Live Server
 
-Double-click `index.html` to open it in a browser. Most features will work immediately. Some browsers apply stricter rules to audio when opening local files, so using a local server is recommended.
+1. Open the `forever-yes` folder in Visual Studio Code.
+2. Install the **Live Server** extension if needed.
+3. Right-click `index.html`.
+4. Select **Open with Live Server**.
 
-### Option 2: VS Code Live Server
+### Option 2 — Python
 
-1. Install [Visual Studio Code](https://code.visualstudio.com/).
-2. Install the **Live Server** extension.
-3. Open the `forever-yes` folder in VS Code.
-4. Right-click `index.html`.
-5. Select **Open with Live Server**.
-
-### Option 3: Python local server
-
-Open a terminal inside the project folder and run:
+Inside the project folder run:
 
 ```bash
 python -m http.server 5500
 ```
 
-Then open:
+On Windows, if `python` is unavailable:
+
+```bash
+py -m http.server 5500
+```
+
+Then visit:
 
 ```text
 http://localhost:5500
 ```
 
-On Windows, use `py -m http.server 5500` when the `python` command is unavailable.
-
-### Option 4: Node.js local server
+### Option 3 — Node.js
 
 ```bash
 npx serve .
@@ -94,34 +122,32 @@ npx serve .
 
 Open the local address shown in the terminal.
 
-## Customise the content
+## Customise the proposal text
 
-Open `index.html` and edit the text inside each `.slide` article.
+Open `index.html` and edit the text inside the `.slide` elements.
 
-Key sections:
+Main sections:
 
-- Intro message: first `.slide`
-- Compliments: second, third and fourth `.slide`
-- Proposal question: `.proposal-slide`
-- Celebration message: `.success-slide`
+- First slide — opening message
+- Second slide — first compliment
+- Third slide — second compliment
+- Fourth slide — final message before the question
+- `.proposal-slide` — main proposal question
+- `.success-slide` — celebration message
 
-Replace the illustration at:
+## Replace the proposal image
+
+Replace:
 
 ```text
 assets/images/proposal.jpg
 ```
 
-Replace the music file at:
+For best results use a square or nearly square image. Keeping the same filename means no code changes are required.
 
-```text
-assets/audio/bg-music.mp3
-```
+## Change colours
 
-Keep the same file names, or update the corresponding paths in `index.html`.
-
-## Change colours and fonts
-
-The main design tokens are at the beginning of `css/style.css`:
+The main design variables are at the beginning of `css/style.css`:
 
 ```css
 :root {
@@ -133,21 +159,29 @@ The main design tokens are at the beginning of `css/style.css`:
 }
 ```
 
-The project uses **DM Serif Display** for headings and **Manrope** for interface text, with fallback fonts for reliability.
+## Responsive behaviour
+
+The layout is designed to avoid unnecessary scrolling:
+
+- Desktop: image and proposal content stay side by side inside a bounded card.
+- Tablet: the image becomes a compact banner above the content.
+- Mobile: the image banner becomes smaller and the footer is removed from the main viewport.
+- Short desktop screens: typography and image size automatically compress.
+
+The **Not yet** button is restricted to its own movement area, so it cannot cover the **Yes** button or escape outside the proposal card.
 
 ## Deploy to GitHub Pages
 
-1. Sign in to GitHub using the account `shawn-cse`.
-2. Create a new repository, for example `forever-yes`.
-3. Upload all project files to the repository root.
-4. Open the repository **Settings**.
-5. Select **Pages** from the sidebar.
-6. Under **Build and deployment**, choose **Deploy from a branch**.
-7. Select the `main` branch and `/ (root)` folder.
-8. Click **Save**.
-9. Wait a few minutes for GitHub to publish the site.
+1. Sign in to GitHub with `shawn-cse`.
+2. Create a repository named `forever-yes`.
+3. Upload the project files to the repository root.
+4. Open **Settings → Pages**.
+5. Under **Build and deployment**, choose **Deploy from a branch**.
+6. Select the `main` branch and `/ (root)`.
+7. Save the settings.
+8. Wait for GitHub Pages to publish the project.
 
-The public URL should follow this format:
+Your site should then be available at:
 
 ```text
 https://shawn-cse.github.io/forever-yes/
@@ -166,36 +200,21 @@ git push -u origin main
 
 Create the GitHub repository before running the final two commands.
 
-## Browser support
+## Browser notes
 
-The website is designed for current versions of Chrome, Edge, Firefox and Safari. Background music begins only after a user presses the music button because modern browsers block unrequested autoplay.
+Modern browsers normally block audio that starts before a user interaction. Forever Yes starts the song when the visitor begins the proposal journey, so it follows normal browser playback restrictions.
 
-## Accessibility notes
+If a network blocks Wikimedia Commons, the rest of the website still works normally; only the default song will be unavailable. You can bundle your own permitted MP3 using the instructions above.
 
-- All controls are keyboard accessible.
-- A skip link is available for keyboard users.
-- The progress indicator includes ARIA values.
-- Motion is reduced when the operating system requests reduced animation.
-- Decorative animations are hidden from screen readers.
-- The moving “Not yet” effect is pointer-based; keyboard users can still use the interface safely.
+## Accessibility
 
-## Screenshots
-
-### Desktop home
-
-![Desktop home](screenshots/home-desktop.png)
-
-### Desktop proposal
-
-![Desktop proposal](screenshots/proposal-desktop.png)
-
-### Desktop success state
-
-![Desktop success](screenshots/success-desktop.png)
-
-### Mobile home
-
-![Mobile home](screenshots/home-mobile.png)
+- Semantic buttons and headings
+- Keyboard focus styles
+- Right-arrow navigation through the message slides
+- ARIA progress information
+- Reduced-motion support
+- Decorative animations hidden from screen readers
+- No-button movement is contained inside a dedicated safe area
 
 ## Author
 
@@ -204,4 +223,6 @@ The website is designed for current versions of Chrome, Edge, Firefox and Safari
 
 ## Licence
 
-This project is available under the MIT Licence. See `LICENSE` for details.
+The website source code is available under the MIT Licence. See `LICENSE` for details.
+
+The default music has its own public-domain/CC0 status documented in `MEDIA-LICENSE.md`.

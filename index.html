@@ -40,7 +40,7 @@
           <circle cx="6" cy="18" r="3" />
           <circle cx="17" cy="16" r="3" />
         </svg>
-        <span class="music-label">Music</span>
+        <span class="music-label">English song</span>
       </button>
     </header>
 
@@ -134,9 +134,11 @@
                 <button class="primary-button yes-button" id="yesButton" type="button">
                   Yes, forever <span aria-hidden="true">♥</span>
                 </button>
-                <button class="secondary-button no-button" id="noButton" type="button">
-                  Not yet
-                </button>
+                <div class="no-zone" id="noZone" aria-label="Playful no button area">
+                  <button class="secondary-button no-button" id="noButton" type="button">
+                    Not yet
+                  </button>
+                </div>
               </div>
               <p class="playful-message" id="playfulMessage" role="status"></p>
             </article>
@@ -161,7 +163,12 @@
     </footer>
 
     <canvas id="confettiCanvas" aria-hidden="true"></canvas>
-    <audio id="backgroundMusic" src="assets/audio/bg-music.mp3" loop preload="metadata"></audio>
+    <audio id="backgroundMusic" loop preload="none">
+      <source
+        src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Every_Little_Movement.ogg"
+        type="audio/ogg"
+      />
+    </audio>
 
     <noscript>
       <div class="noscript-message">Please enable JavaScript to enjoy the complete interactive experience.</div>
